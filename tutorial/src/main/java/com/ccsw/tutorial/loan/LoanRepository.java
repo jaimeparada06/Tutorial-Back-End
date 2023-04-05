@@ -29,10 +29,10 @@ public interface LoanRepository extends CrudRepository<Loan, Long> {
     Page<Loan> find(Pageable pageable, @Param("idGame") Long idGame, @Param("idClient") Long idClient,
             @Param("date") Date date);
 
-    @Query("SELECT p from Loan p WHERE p.client.id = :id AND ((p.borrowedDate <= :returnD AND :returnD <= p.returnDate) OR (p.borrowedDate <= :borrowD AND :borrowD <= p.returnDate))")
+    @Query("SELECT p from Loan p WHERE p.client.id = :id AND ((p.borrowedDate <= :returnD AND :returnD <= p.returnDate) OR (p.borrowedDate <= :borrowD AND :borrowD <= p.returnDate) OR (p.borrowedDate > :borrowD AND :returnD > p.returnDate))")
     List<Loan> getAllClients(Long id, Date borrowD, Date returnD);
 
-    @Query("SELECT p from Loan p WHERE p.game.id = :id AND ((p.borrowedDate <= :returnD AND :returnD <= p.returnDate) OR (p.borrowedDate <= :borrowD AND :borrowD <= p.returnDate))")
+    @Query("SELECT p from Loan p WHERE p.game.id = :id AND ((p.borrowedDate <= :returnD AND :returnD <= p.returnDate) OR (p.borrowedDate <= :borrowD AND :borrowD <= p.returnDate) OR (p.borrowedDate > :borrowD AND :returnD > p.returnDate))")
     List<Loan> getAllGames(Long id, Date borrowD, Date returnD);
 
 }
